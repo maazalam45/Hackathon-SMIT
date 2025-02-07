@@ -162,13 +162,13 @@
           <a href="./Pages/signupPage/signup.html" id="signupLink" class="btn">
             Sign Up
           </a>
-          <a href="./Pages/Form/form.html" id="uploadProductBtn" class="btn">
+          <a href="./Pages/Form/form.html" id="uploadProductBtn" class="btn hidden">
             Upload Product
           </a>
           <button
             onclick="logout()"
             id="logoutBtn"
-            class="btn-primary"
+            class="btn-primary hidden"
             type="button"
           >
             Logout
@@ -200,6 +200,27 @@
       </div>
     </div>
 
-    <script type="module" src="./js/app.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const uploadProductBtn = document.getElementById("uploadProductBtn");
+        const logoutBtn = document.getElementById("logoutBtn");
+        const loginLink = document.getElementById("loginLink");
+        const signupLink = document.getElementById("signupLink");
+
+        const userLoggedIn = localStorage.getItem("user"); // Check if user data exists
+
+        if (userLoggedIn) {
+          uploadProductBtn.classList.remove("hidden"); // Show Upload Product button
+          logoutBtn.classList.remove("hidden"); // Show Logout button
+          loginLink.classList.add("hidden"); // Hide Login button
+          signupLink.classList.add("hidden"); // Hide Signup button
+        }
+      });
+
+      function logout() {
+        localStorage.removeItem("user"); // Clear user data
+        window.location.reload(); // Refresh page to update UI
+      }
+    </script>
   </body>
 </html>
